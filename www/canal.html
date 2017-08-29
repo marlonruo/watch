@@ -1,29 +1,3 @@
-<?php
-header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-$id=$_GET['id'];
-$canal=$_GET['canal'];
-include ("phps/conexion.php");
-	 $connect = mysql_connect("$host", "$user", "$pass");
-     mysql_select_db("$db", $connect);
-
-	$result = mysql_query("INSERT INTO llama (id_browser, id_caster, estatus) VALUES ('$id', '$canal', '1')");
-
-	$monto = '0';
-	$result = mysql_query("SELECT SUM(monto) as total FROM creditos_browser WHERE id_usuario_credito=$id");
-	 while($row=mysql_fetch_array($result)){
-		$monto = $row['total'];
-	 }
-	if($monto==""){
-		$monto = 0;
-	}
-	
-?>
-
-
 <!doctype html>
 <html>
 <head>
@@ -79,13 +53,6 @@ include ("phps/conexion.php");
 			
 		   		   
 			
-		<?php					
-		$result = mysql_query("SELECT * FROM usuarios WHERE id=$canal");
-		$cant = 0;
-        while($row=mysql_fetch_array($result)){
-			$foto1=$row['foto1'];
-		}
-		?>
 		
 			
 				<div style="position:absolute; width: 100%; height: 92%; top: 8%; background: #8E8E8E; background-image:url(uploads/<?php echo $foto1?>); background-position:center; background-size: cover">
@@ -143,7 +110,7 @@ include ("phps/conexion.php");
 						</div>
 						
 						<div id="add_c" style="position: absolute; width: 80%; left: 10%; height: 17%; top: 63%; border-bottom: 1px solid rgba(166,166,166,1.00); cursor: pointer">
-							<div id="monto_total" class="centrar_v textos_m" style="text-align:center; color:#424242; width: 100%; margin-top: -8%">USD $<?php echo $monto?></div>
+							<div id="monto_total" class="centrar_v textos_m" style="text-align:center; color:#424242; width: 100%; margin-top: -8%">USD12</div>
 							<div class="centrar_v textos_c" style="text-align:center; color:#424242; width: 100%; margin-top: 8%">ADD CREDITS</div>
 						</div>
 						
@@ -176,19 +143,19 @@ include ("phps/conexion.php");
     		<div style="position: absolute; width: 100%; height: 18%; background: url(img/fondo_rosa.png); background-size:100% 100%">
 				<div class="centrar_v textos_m" style="text-align: center; width: 100%">ADD CREDITS</div>
 			</div>
-   	
+
 						<div id="add1" style="position: absolute; width: 80%; left: 10%; height: 20%; top: 18%; border-bottom: 1px solid rgba(166,166,166,1.00); cursor: pointer">
-							<div id="te1" class="centrar_v textos_m" style="text-align:left; color:#424242; width: 100%">+10 USD</div>
+							<div id="te1a" class="centrar_v textos_m" style="text-align:left; color:#424242; width: 100%">+10 USD</div>
 					    	<img class="centrar_v" src="img/cuadro.png" style="height: 35%; right: 10px;"/> 
 					    	<img id="palomita1" class="centrar_v" src="img/palomita.png" style="height: 35%; right: 10px;"/> 
 					    </div>
    						<div id="add2" style="position: absolute; width: 80%; left: 10%; height: 20%; top: 38%; border-bottom: 1px solid rgba(166,166,166,1.00); cursor: pointer">
-							<div id="te2" class="centrar_v textos_m" style="text-align:left; color:#424242; width: 100%">+20 USD</div>
+							<div id="te2a" class="centrar_v textos_m" style="text-align:left; color:#424242; width: 100%">+20 USD</div>
 							<img class="centrar_v" src="img/cuadro.png" style="height: 35%; right: 10px;"/> 
 					    	<img id="palomita2" class="centrar_v" src="img/palomita.png" style="height: 35%; right: 10px; display: none"/> 
 						</div>
 						<div id="add3" style="position: absolute; width: 80%; left: 10%; height: 20%; top: 58%; border-bottom: 1px solid rgba(166,166,166,1.00); cursor: pointer">
-							<div id="te3" class="centrar_v textos_m" style="text-align:left; color:#424242; width: 100%">+50 USD</div>
+							<div id="te3a" class="centrar_v textos_m" style="text-align:left; color:#424242; width: 100%">+50 USD</div>
 							<img class="centrar_v" src="img/cuadro.png" style="height: 35%; right: 10px;"/> 
 					    	<img id="palomita3" class="centrar_v" src="img/palomita.png" style="height: 35%; right: 10px; display: none"/> 
 						</div>
@@ -230,7 +197,7 @@ include ("phps/conexion.php");
 	
 	
 	<script>
-		var creditos = '<?php echo $monto?>'
+		var creditos = '100'
 		
 							
 							$('#add_c').click(function(){
@@ -245,57 +212,7 @@ include ("phps/conexion.php");
 							
 							var donaciones = 0
 		
-							$('#mas1').click(function(){
-									$('#mas1').css('background', 'url(img/fondo_rosa.png)')
-									$('#mas1').css('background-size', '100% 100%')
-									$('#te1').css('color', '#ffffff')
-									setTimeout("$('#mas1').css('background', 'none'); $('#te1').css('color', '#BA205A')", 800)
-									
-								if(total >= 1){
-									$('#donar').load('phps/donar1.php?id1=<?php echo $id?>&id2=<?php echo $canal?>&monto=1')
-									total = Math.round(total -.1 - 1 +.1)
-									$('#monto_total').html('USD $'+total)
-									donaciones = donaciones + 1
-									$('#mas_credito').load('phps/mas_credito.php?id=<?php echo $id?>&monto=-1')
-								}else{
-									$('#pagos').fadeIn()
-									$('#atras').fadeIn()
-								}
-							})
 							
-							$('#mas2').click(function(){
-									$('#mas2').css('background', 'url(img/fondo_rosa.png)')
-									$('#mas2').css('background-size', '100% 100%')
-									$('#te2').css('color', '#ffffff')
-									setTimeout("$('#mas2').css('background', 'none'); $('#te2').css('color', '#BA205A')", 800)
-								if(total >= 3){
-									$('#donar').load('phps/donar1.php?id1=<?php echo $id?>&id2=<?php echo $canal?>&monto=3')
-									total = Math.round(total -.1 - 3 +.1)
-									$('#monto_total').html('USD $'+total)
-									donaciones = donaciones + 3
-									$('#mas_credito').load('phps/mas_credito.php?id=<?php echo $id?>&monto=-3')
-								}else{
-									$('#pagos').fadeIn()
-									$('#atras').fadeIn()
-								}
-							})
-							
-							$('#mas3').click(function(){
-									$('#mas3').css('background', 'url(img/fondo_rosa.png)')
-									$('#mas3').css('background-size', '100% 100%')
-									$('#te3').css('color', '#ffffff')
-									setTimeout("$('#mas3').css('background', 'none'); $('#te3').css('color', '#BA205A')", 800)
-								if(total >= 5){
-									$('#donar').load('phps/donar1.php?id1=<?php echo $id?>&id2=<?php echo $canal?>&monto=5')
-									total = Math.round(total -.1 - 5 +.1)
-									$('#monto_total').html('USD $'+total)
-									donaciones = donaciones + 5
-									$('#mas_credito').load('phps/mas_credito.php?id=<?php echo $id?>&monto=-5')
-								}else{
-									$('#pagos').fadeIn()
-									$('#atras').fadeIn()
-								}
-							})
 		
 		
 		
@@ -310,10 +227,10 @@ include ("phps/conexion.php");
 			
 			$('#si').click(function(){
 				$('#salir').fadeOut()
-				window.location.href = 'b_end.php?id=<?php echo $id?>&canal=<?php echo $canal?>&segundos='+total_segundos+'&total='+donaciones;
+			
 			})
 
-			var room = "<?php echo $canal?>";
+			var room = "1";
 		
 			function transmitir(){
 			$('.videoContainer').show()
@@ -344,7 +261,7 @@ include ("phps/conexion.php");
             });
             webrtc.on('videoRemoved', function (video, peer) {
 		
-				window.location.href = 'b_end.php?id=<?php echo $id?>&canal=<?php echo $canal?>&segundos='+total_segundos+'&total='+donaciones;
+				
                 var remotes = document.getElementById('remotes');
                 var el = document.getElementById('container_' + webrtc.getDomId(peer));
                 if (remotes && el) {
@@ -366,7 +283,7 @@ include ("phps/conexion.php");
 									seg--
 									total_segundos++
 									if(seg == 0 && dec ==0 && minu==0){
-										window.location.href = 'b_end.php?id=<?php echo $id?>&canal=<?php echo $canal?>&segundos='+total_segundos+'&total='+donaciones;
+										
 									}else{
 										if(cron==0){
 											setTimeout('cronometro()', 1000)
@@ -411,7 +328,7 @@ include ("phps/conexion.php");
 			<a href="b_profile.php?id=<?php echo $id?>"><div class="textos_m" style="position: absolute; top: 31%; left: 15%; color:#424243;">PROFILE</div></a>
 			<a href="c_profile.php?id=<?php echo $id?>"><div class="textos_m" style="position: absolute; top: 38%; left: 15%; color:#424243;">CAST</div></a>
 			<a href="b_contact.php?id=<?php echo $id?>"><div class="textos_m" style="position: absolute; top: 45%; left: 15%; color:#424243;">CONTACT US</div>
-			<a href="index.php"><div class="textos_m" style="position: absolute; top: 52%; left: 15%; color:#424243;">LOG OUT</div></a>
+			</a><a href="index.php"><div class="textos_m" style="position: absolute; top: 52%; left: 15%; color:#424243;">LOG OUT</div></a>
 				<a href="b_favorites.php?id=<?php echo $id?>"><div class="textos_C" style="position: absolute; top: 60%; left: 15%; color:#BBBCBE; padding-left:10%; background:url(img/favoritos.png) no-repeat; background-size: auto 100%">FAVORITES</div></a>
 				<a href="b_trending.php?id=<?php echo $id?>"><div class="textos_C" style="position: absolute; top: 67%; left: 15%; color:#BBBCBE; padding-left:10%; background:url(img/trending.png) no-repeat; background-size: auto 100%">TRENDING</div></a>
 				<a href="galeria.php?id=<?php echo $id?>"><div class="textos_C" style="position: absolute; top: 74%; left: 15%; color:#BBBCBE; padding-left:10%; background:url(img/live.png) no-repeat; background-size: auto 80%; background-position:0% 10%">LIVE NOW</div></a>
@@ -459,7 +376,7 @@ include ("phps/conexion.php");
 	  	}
 	
 					function checar(){
-						$('#tiempo').load('phps/mastiempo.php?id=<?php echo $canal?>')
+						//$('#tiempo').load('phps/mastiempo.php?id=<?php echo $canal?>')
 					}
 				 
 					setInterval(checar, 3000);
@@ -518,21 +435,8 @@ $( window ).resize(function() {
         }, '#paypal-button-container');
 	
 	
-		var total = '<?php echo $monto?>'
+		var total = '1'
 		function agregar(){
-			if(addd==1){
-				total = total -.1 + 10 +.1
-				$('#monto_total').html('USD $'+total)
-				$('#mas_credito').load('phps/mas_credito.php?id=<?php echo $id?>&monto=10')
-			}else if(addd==2){
-				total = total -.1 + 20 +.1
-				$('#monto_total').html('USD $'+total)
-				$('#mas_credito').load('phps/mas_credito.php?id=<?php echo $id?>&monto=20')
-			}else if(addd==3){
-				total = total -.1 + 50 +.1
-				$('#monto_total').html('USD $'+total)
-				$('#mas_credito').load('phps/mas_credito.php?id=<?php echo $id?>&monto=50')
-			}
 			
 			
 		}
