@@ -1,0 +1,94 @@
+/*! nouislider - 10.0.0 - 2017-05-28 14:52:48 */
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+
+.noUi-target {
+  position: relative;
+  direction: ltr;
+}
+.noUi-base {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  /* Fix 401 */
+}
+.noUi-connect {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.noUi-origin {
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+.noUi-handle {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Painting and performance;
+ * Browsers can paint handles in their own layer.
+ */
+.noUi-base,
+
+/* Slider size and handle placement;
+ */
+.noUi-horizontal {
+  height: 18px;
+}
+.noUi-horizontal .noUi-handle {
+  width: 20px;
+  height: 20px;
+  left: -17px;
+  top: -8px;
+  background-image:url(../img/bolita.png);
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  cursor:pointer;
+  text-decoration:none
+}
+
+
+/* Styling;
+ */
+.noUi-target {
+  
+}
+
+/*linea*/
+.noUi-connect {
+  background: #C127A4;
+  border-radius: 0px;
+  height:1px;
+  top:0px;
+}
+/* Handles and cursors;
+ */
+
+
+
+/* Handle stripes;
+ */
+.noUi-handle:before,
+.noUi-handle:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  background-color:none;
+  left: 0px;
+  top: 0px;
+}
+.noUi-handle:after {
+  left: 17px;
+}
+
+

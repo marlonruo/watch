@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        
+        <script src="js/jquery-1.11.2.js"></script>
+		<script src="js/jquery.mobile.custom.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/ui.touch.punch.js"></script>
+        <script type="text/javascript" src="js/jquery.form.js"></script>
+
+
+        <title>WatchME!</title>
+		
+ 
+        
+		<style>
+.redondear {
+     -moz-border-radius: 4px;
+     -webkit-border-radius: 4px;
+     border-radius: 4px;
+}
+
+		</style> 
+   
+    </head>
+    <body onLoad="inicio()">
+        <div class="app">
+        
+       	   
+         <div style="position: absolute; width: 100%; height: 100%; background: url(img/azul.png); background-size: 100% 100%">
+				<div id="login" style="position: absolute; width: 100%; height: 100%">
+					<div id="idioma" class="campo1 textos_m" style="top: 5%; right: 30px; text-align: right;30px; position: absolute; cursor: pointer"><b>ENG</b>/SPA</div>
+					<img class="centrar_h" src="img/logo2.png" style="height: 25%; top: 17%;"/>
+					<div id="texto1" class="centrar_h textos_m" style="top: 48%; text-align: left">Already a User, sign in:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+					<form id="forma_login" name="forma_login" method="post" action="phps/login.php">
+						<input id="correo" name="correo" class="campo1 centrar_h redondear textos_c" type="text" style="top: 55%; height: 4%; background: none; border: 1px solid rgba(255,255,255,1.00); font-family:ari; color: white; padding-left: 15px" value="Email" onFocus="if(this.value=='Email'){this.value=''}" onBlur="if(this.value==''){this.value='Email'};">
+						<input id="pass" name="pass" class="campo1 centrar_h redondear textos_c" type="password" style="top: 62%; height: 4%; background: none; border: 1px solid rgba(255,255,255,1.00); font-family:ari; color: white; padding-left: 15px" value="Password" onFocus="if(this.value=='Password'){this.value=''}" onBlur="if(this.value==''){this.value='Password'};">
+						<input class="campo1a centrar_h textos_c" type="submit" style="top: 69%; height: 6%; background:white; border: none; color:#333D8B; font-family: ariBold" value="LOG IN">
+
+						<div id="retro1" class="campo1 centrar_h textos_c" style="text-align: right; top: 87%"></div>
+
+					</form>
+
+
+					<div id="remember" class="campo1b centrar_h textos_c" style="top: 76%; text-align: right; cursor: pointer; padding-right: 33px;">
+						<span id="te2">Remeber ME!</span>
+						<img class="centrar_v" src="img/cuadro2.png" style="position: absolute; right: 2px; height:100%"/>
+						<img id="palomita" class="centrar_v" src="img/palomita.png" style="position: absolute; right: 2px; height:100%; display: none"/>
+					</div>
+
+
+				  <div id="registro" class="campo1a centrar_h textos_c" style="top: 81%; height: 5%; background:rgba(255,255,255,1); border: none; color:#333D8B; font-family: ariBold; cursor:pointer">
+						<div class="centrar" style="color:#333D8B;">Register now</div>
+					</div>
+
+					<div id="te3" class="campo1 centrar_h textos_c" style="top: 78%; padding-right: 16px; text-align: left; cursor: pointer">Not a User?</div>
+				</div>
+
+
+					<script>
+					var rem=0
+					$('#remember').click(function(){
+						if(rem==0){
+							$('#palomita').fadeIn()
+							rem=1
+						}else if(rem==1){
+							$('#palomita').fadeOut()
+							rem=0
+						}
+					})	
+
+
+					var idi='en';
+					$('#idioma').click(function(){
+						if(idi=='en'){
+							$(this).html('ENG/<b>SPA</b>')
+							$('#texto1').html('Ya eres Usuario, inicia sesión:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+							$('#te2').html('RecuerdaME!')
+							$('#te3').html('¿No eres Usuario?')
+							idi='es'
+						}else{
+							$(this).html('<b>ENG</b>/SPA')
+							$('#texto1').html('Already a User, sign in:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+							$('#te2').html('Remeber ME!')
+							$('#te3').html('Not a User?')
+							idi='en'
+						}
+						inicio()
+					})
+
+
+					$('#registro').click(function(){
+						window.location.href ='canal1.php?canal=1'
+					})	
+
+					$('#forma_login').submit(function() {
+					var correo = $("input#correo").val();
+					var pass = $("input#pass").val();	
+					var filtro = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;	
+					if (!filtro.test(correo)) {
+						$('#retro1').html('* Email address required')
+						setTimeout("$('#retro1').html('')", 1500)
+						return false;
+					}
+
+					if(pass=='Password' || pass == ''){
+						$('#retro1').html('* Password required')
+						setTimeout("$('#retro1').html('')", 1500)
+						return false;
+					}
+
+
+
+					$('#retro1').html('* Wait a moment')
+					$.ajax({
+						type: 'POST',
+						url: $(this).attr('action'),
+						data: $(this).serialize(),
+						success: function(data) {
+								if(data.trim()=="no_pasa"){
+									$('#retro1').html('* Usuario o contraseña incorrectos')
+								}else{
+									$('#retro1').html('')
+
+									window.location.href = '#info'
+
+									var datos = data
+									var campo = datos.split("-*");
+									var id=campo[0];
+									var rol=campo[1].trim();
+									if(rol==1){
+										window.location.href = 'c_espera.php?id='+id;
+									}else{
+										window.location.href = 'galeria.php?id='+id;
+									}	
+								}
+						}
+					})
+					return false;
+				}); 
+				</script> 
+			</div>   
+        </div>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        
+        
+       <script>
+		function inicio(){
+				var $window = $(window);
+				width = $window.width();
+				height = $window.height();
+				
+				$('.textos_exg').css('font-size', height/15+'px')
+				$('.textos_ex').css('font-size', height/22+'px')
+				$('.textos_g').css('font-size', height/32+'px')
+				$('.textos_m').css('font-size', height/45+'px')
+				$('.textos_c').css('font-size', height/55+'px')	
+				$('.textos_cx').css('font-size', height/70+'px')
+				
+
+				$('.campo1').css('width',($('#texto1').width()-15)+'px')
+				$('.campo1a').css('width',($('#texto1').width())+'px')
+				$('.campo1b').css('width',($('#texto1').width()-33)+'px')
+	  	}
+	
+	
+		$( window ).resize(function() {
+		  inicio()
+		});
+		</script>
+				
+        
+    </body>
+</html>
